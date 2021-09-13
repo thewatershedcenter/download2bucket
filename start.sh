@@ -11,5 +11,5 @@ docker build docker -t test_docker --build-arg USER_ID=$(id -u) --build-arg GROU
 docker run --rm -it -v $PWD:/work -w /work test_docker
 
 # first you must have a service account for the bucket you aim to connect to
-# and generate a creential file with
+# and generate a credential file with
 # gcloud iam service-accounts keys create 
