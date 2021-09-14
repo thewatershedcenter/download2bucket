@@ -1,29 +1,26 @@
 #!/bin/bash
 
-SERVICEACCT=$1
-PROJECT=$2
-DSM=$3
-BBOX=$4
+KEYJSON=$1
+URLS=$2
+#PROJECT=$2
+#DSM=$3
+#BBOX=$4
 
 
 
-./google-cloud-sdk/install.sh --rc-path ~/.bash_profile -q
+#gcloud auth activate-service-account --key-file $KEYJSON
+mkdir -p /out/files
 
-PATH="$PATH" && exec bash
-
-source '/work/google-cloud-sdk/path.bash.inc'
-source '/work/google-cloud-sdk/completion.bash.inc'
-
-gcloud iam service-accounts keys create /work/key.json --iam-account=$SERVICEACCT@$PROJECT.iam.gserviceaccount.com
-
-{gcloud auth activate-service-account --key-file=key.json} || {
-echo "Waiting for key to take hold!" \
-&& sleep 30 \
-&& echo "Hear any good jokes lately?" \
-&& sleep 30 \
-&& gcloud auth activate-service-account --key-file=key.json 
+curling_func(){
+    url=$1
+    f="$(echo $url | rev | cut -d"/" -f1 | rev)"
+    curl -L -s -o /out/files/$f $url
 }
+export -f curling_func
+
+cat $URLS | parallel --bar curling_func {1}
+
+gsutil -m cp -r /out/files gs://monument_bucket
 
 
 
-gcloud config set project 
