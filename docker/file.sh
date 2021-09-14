@@ -8,7 +8,7 @@ URLS=$2
 
 
 
-#gcloud auth activate-service-account --key-file $KEYJSON
+gcloud auth activate-service-account --key-file $KEYJSON
 mkdir -p /out/files
 
 curling_func(){
