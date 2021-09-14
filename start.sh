@@ -47,7 +47,9 @@ case "$flag" in
         exit 0
         ;;
     r)  RM=remove;;
-    a)  AG=remove
+    a)  echo "-a is not yet implemented"
+        exit 0
+        AG=remove
         RM=remove;;
     k)  KEYJSON=$OPTARG;;
     u)  URLS=$OPTARG;;
@@ -57,7 +59,7 @@ case "$flag" in
 esac
 done
 
-#docker build docker -t test_docker --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
+docker build docker -t test_docker --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
 
 docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work test_docker $KEYJSON $URLS $BUCKET $BUCKDIR $RM $AG
 
@@ -67,3 +69,4 @@ docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work test_docker $KEYJSON 
 
 # ./start.sh monument2_key.json small.txt /media/data/Downloads/ monument_bucket Carr_
 # ./start.sh -r -k monument2_key.json -u small.txt -o /media/data/Downloads/ -b monument_bucket -d Carr_ 
+# ./start.sh -r -k monument2_key.json -u carr_downloadlist_lidar.txt -o /media/data/Downloads/ -b monument_bucket -d carr_lidar 
