@@ -1,11 +1,11 @@
 FROM ubuntu:focal-20210827
 
+# parse args
 ARG USER_ID
 ARG GROUP_ID
 
+# install packages
 RUN apt-get update && apt install parallel python3 curl -y
-
-
 
 # Downloading gcloud package
 RUN curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz
@@ -22,20 +22,20 @@ ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 RUN addgroup --gid $GROUP_ID user \
     && adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 
+# copy file and change permissions
 COPY file.sh /
 RUN  chmod 777 file.sh
 
 # change to user
 USER user
 
+# labels
+LABEL maintainer=michael@thewatershedcenter.com
+
+# enter into bash script
 ENTRYPOINT ["/file.sh"]
 
-#RUN ./google-cloud-sdk/install.sh --rc-path /home/$USER_ID/.bash_profile -q \
-#&& PATH="$PATH" && exec bash
 
-#RUN source '/home/jovyan/work/google-cloud-sdk/path.bash.inc' \
-#&& source '/home/jovyan/work/google-cloud-sdk/completion.bash.inc' \
-#&& gcloud components install app-engine-python
 
 
 
