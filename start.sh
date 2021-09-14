@@ -1,10 +1,11 @@
 #!/bin/sh
 
-RM=persist
+RM=do_not_remove
+AG=do_not_remove
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
-        -h | --help)
+        -h)
             echo "SYNOPSIS"  
             echo "     ./start [key_file] [list_of_urls] [output_dir] [bucket] [bucket_dir] "
             echo "DESCRIPTION"
@@ -36,8 +37,12 @@ while (( "$#" )); do
             echo "        in the bucket with names as though they were in directories)"
             shift
             ;;
-        -r | --remove)
+        -r)
             RM=remove
+            shift
+            ;;
+        -a)
+            AG=remove
             shift
             ;;
         *) # preserve positional arguments
@@ -54,10 +59,10 @@ BUCKDIR=$5
 
 docker build docker -t test_docker --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
 
-docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work test_docker $KEYJSON $URLS $BUCKET $BUCKDIR $RM
+docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work test_docker $KEYJSON $URLS $BUCKET $BUCKDIR $RM $AG
 
 # first you must have a service account for the bucket you aim to connect to
 # and generate a credential file with
 # gcloud iam service-accounts keys create 
 
-# ./start.sh monument2_key.json small.txt /media/data/Downloads/ monument_bucket  Carr
+# ./start.sh monument2_key.json small.txt /media/data/Downloads/ monument_bucket Carr_
