@@ -59,9 +59,9 @@ case "$flag" in
 esac
 done
 
-docker build docker -t test_docker --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
+docker build docker -t gcloud_tranfer_docker --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
 
-docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work test_docker $KEYJSON $URLS $BUCKET $BUCKDIR $RM $AG
+docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work gcloud_tranfer_docker $KEYJSON $URLS $BUCKET $BUCKDIR $RM $AG
 
 # first you must have a service account for the bucket you aim to connect to
 # and generate a credential file with

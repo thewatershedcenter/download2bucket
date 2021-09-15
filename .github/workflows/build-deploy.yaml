@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - main
-      - master
   # Let's also trigger a build and publish of your container when 
   # you release a new version. You can use "created" here instead of published.
   release:
@@ -23,8 +22,8 @@ jobs:
     # Quay.io or another OCI registry
     env:
       registry: ghcr.io
-      username: autamus
-      repository: container-builder-template     
+      username: kulpojke
+      repository: download2bucket     
 
     strategy:
       # Even if one docker container build fails we want the others to continue.
@@ -32,7 +31,7 @@ jobs:
       # A matrix of Dockerfile paths and associated tags
       # Dockerfile in root builds to tag latest
       matrix:
-        dockerfile: [[Dockerfile, latest], [subfolder/Dockerfile, subfolder]]
+        dockerfile: [[Dockerfile, latest]]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
