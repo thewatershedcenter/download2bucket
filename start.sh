@@ -66,6 +66,6 @@ docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work gcloud_tranfer_docker
 # first you must have a service account for the bucket you aim to connect to
 # and generate a credential file with
 # gcloud iam service-accounts keys create 
-
+#
 # ./start.sh -r -k monument2_key.json -u small.txt -o /media/data/Downloads/ -b monument_bucket -d Carr_ 
 # ./start.sh -r -k monument2_key.json -u carr_downloadlist_lidar.txt -o /media/data/Downloads/ -b monument_bucket -d carr_lidar 
