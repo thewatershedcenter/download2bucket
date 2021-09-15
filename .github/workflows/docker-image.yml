@@ -52,7 +52,7 @@ jobs:
             printf "Dockerfile ${{ matrix.dockerfile[0] }} does not exist"
             exit 1;
         fi
-        docker build -f ${{ matrix.dockerfile[0] }} -t ${{ env.container }} -t ${{ env.versioned }} --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
+        docker build -f docker -t ${{ env.container }} -t ${{ env.versioned }} --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
         docker images
 
     - name: Login to GitHub Container Registry
