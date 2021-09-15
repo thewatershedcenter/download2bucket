@@ -26,7 +26,7 @@ jobs:
       # A matrix of Dockerfile paths and associated tags
       # Dockerfile in root builds to tag latest
       matrix:
-        dockerfile: [[docker, latest]]
+        dockerfile: [[docker/, latest]]
 
     steps:
     - name: Checkout
