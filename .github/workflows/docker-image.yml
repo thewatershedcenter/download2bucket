@@ -42,7 +42,7 @@ jobs:
     - name: Set Container Tag Release
       if: github.event_name == 'release'
       run: |
-        versioned="${{ env.registry }}/${{ env.username}}/${{ env.repository }}:${GITHUB_REF##*/}-${{ matrix.dockerfile[1] }}"
+        versioned="${{ env.repository }}:${GITHUB_REF##*/}-${{ matrix.dockerfile[1] }}"
         echo "versioned=${versioned}" >> $GITHUB_ENV
 
     - name: Build ${{ matrix.dockerfile[1] }}
@@ -65,6 +65,6 @@ jobs:
     - name: Deploy ${{ matrix.dockerfile[1] }}
       # And Don't log push the container on a pull request.
       if: github.event_name != 'pull_request'
-      run: docker push  --all-tags
+      run: docker push ${{ env.container }} ${{ env.versioned }}
 
     
