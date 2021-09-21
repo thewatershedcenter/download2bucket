@@ -1,5 +1,5 @@
 # download2bucket
-Containerized utilities for downloading files from a list of urls and moving them to a bucket.  currenlty only support gcloud buckets. There are tow utilities at present.  Images for the containers are hosted on Quay.
+Containerized utilities for downloading files from a list of urls and moving them to a bucket.  currenlty only support gcloud buckets. There are tow utilities at present.  Images for the containers are hosted on Quay.  Start scripts are provided fro running the containers, if you would rather use docker or podman, etc... directly look at the start scripts for details. 
 
 ## Usage ##
 After pulling, enter the download2bucket directory
