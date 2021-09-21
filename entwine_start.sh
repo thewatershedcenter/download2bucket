@@ -3,7 +3,7 @@
 RM=do_not_remove
 AG=do_not_remove
 
-while getopts "hrak:u:o:b:d:" flag; do
+while getopts "hrak:u:o:b:d:e:" flag; do
 case "$flag" in
     h)  
         echo "SYNOPSIS"  
@@ -60,13 +60,12 @@ case "$flag" in
 esac
 done
 
-docker build entwine_docker -t gcloud_ept_docker --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
+#docker build entwine_docker -t gcloud_ept_docker --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
 
-docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work gcloud_ept_docker $KEYJSON $URLS $BUCKET $BUCKDIR $EPSG $RM $AG
+docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work quay.io/kulpojke/download2bucket:entwine $KEYJSON $URLS $BUCKET $BUCKDIR $EPSG $RM $AG
 
 # first you must have a service account for the bucket you aim to connect to
 # and generate a credential file with
 # gcloud iam service-accounts keys create 
 
-# ./start.sh -r -k monument2_key.json -u small.txt -o /media/data/Downloads/ -b monument_bucket -d Carr_ 
-# ./start.sh -r -k monument2_key.json -u carr_downloadlist_lidar.txt -o /media/data/Downloads/ -b monument_bucket -d carr_lidar 
+# ./entwine_start.sh -r -k monument2_key.json -u small_download.txt -o /media/data/Downloads/ -b monument_bucket -d carr_lidar -e EPSG:26910
