@@ -24,7 +24,7 @@ RUN addgroup --gid $GROUP_ID user \
 
 # copy file and change permissions
 COPY entwine_file.sh /
-RUN  chmod 777 file.sh
+RUN  chmod 777 entwine_file.sh
 
 # change to user
 USER user
