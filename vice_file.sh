@@ -11,8 +11,9 @@ AG=$7
 # authorize gcloud account
 gcloud auth activate-service-account --key-file $KEYJSON
 
-# make a directory for downloaded files within outpath
-mkdir -p /root/work/$BUCKDIR/las
+# make a directory for downloaded las files
+LAS=/home/user/work/$BUCKDIR/las
+mkdir -p $LAS
 
 # make afunction to handle curling and saveing
 curling_func(){
@@ -31,15 +32,16 @@ cat $URLS | parallel --bar curling_func {1} $BUCKDIR
 NCORES=$(grep -c ^processor /proc/cpuinfo)
 
 # make an entwine dir
-mkdir -p /out/$BUCKDIR/entwine
+ENTWINE=/home/user/work/$BUCKDIR/entwine
+mkdir -p $ENTWINE
 
-entwine build -i /out/$BUCKDIR/las -o /out/$BUCKDIR/entwine --srs $EPSG -t $NCORES
+entwine build -i $LAS -o $ENTWINE --srs $EPSG -t $NCORES
 
 # copy files to gcloud bucket
-gsutil -m cp -r /out/$BUCKDIR gs://$BUCKET
+gsutil -m cp -r /home/user/work/$BUCKDIR gs://$BUCKET
 
 # if -r or -a flag was set in start remove files or dir
 if [[ $RM = remove ]]
 then
-    rm -r /out/$BUCKDIR
+    rm -r /home/user/work/$BUCKDIR
 fi
