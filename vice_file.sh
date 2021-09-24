@@ -22,7 +22,7 @@ curling_func(){
     url=$1
     bkdir=$2
     f="$(echo $url | rev | cut -d"/" -f1 | rev)"
-    curl -L -s -o /out/$bkdir/las/$f $url
+    curl -L -s -o $LAS/$f $url
 }
 export -f curling_func
 
