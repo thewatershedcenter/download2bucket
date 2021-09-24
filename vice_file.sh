@@ -3,8 +3,8 @@
 KEYJSON=$1
 URLS=$2
 BUCKET=$3
-BUCKDIR=$4
-EPSG=$5
+BUCKDIR=$5
+EPSG=$4
 
 # debugging echos
 echo "$epsg = EPSG"
