@@ -3,7 +3,7 @@ FROM connormanning/entwine:sha-db0aa5a9
 # labels
 LABEL maintainer=michael@thewatershedcenter.com
 
-# parse args
+# parse args (these are not used here but exsit for build consistency with other tagged versions)
 ARG USER_ID
 ARG GROUP_ID
 
@@ -22,18 +22,18 @@ RUN mkdir -p /usr/local/gcloud \
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 # add a user based on args
-RUN addgroup --gid $GROUP_ID user \
-    && adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+#RUN addgroup --gid $GROUP_ID user \
+#    && adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 
 # copy file and change permissions
 COPY vice_file.sh /
 RUN  chmod 777 vice_file.sh
 
 # change to user
-USER user
+#USER user
 
 # change workdir
-WORKDIR /home/user/work
+WORKDIR /root/work
 
 # enter into bash script
 ENTRYPOINT ["/vice_file.sh"]
