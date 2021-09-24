@@ -8,7 +8,8 @@ EPSG=$5
 
 # debugging echos
 TXT=$(realpath $URLS)
-echo $TXT
+P="${TXT%/*}/"
+echo $P
 
 # authorize gcloud account
 gcloud auth activate-service-account --key-file $KEYJSON
@@ -27,7 +28,7 @@ curling_func(){
 export -f curling_func
 
 # curl files in || (note the way BUCKDIR is passed is wierd, the function puts it in between  /out and /las)
-cat $URLS | parallel --bar curling_func {1} $BUCKDIR
+cat $URLS | parallel --bar curling_func {1} $LAS
 
 # how many cores have we?
 NCORES=$(grep -c ^processor /proc/cpuinfo)
