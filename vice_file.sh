@@ -6,6 +6,10 @@ BUCKET=$3
 BUCKDIR=$4
 EPSG=$5
 
+# debugging echos
+TXT=$(realpath $URLS)
+echo $TXT
+
 # authorize gcloud account
 gcloud auth activate-service-account --key-file $KEYJSON
 
