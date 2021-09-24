@@ -38,7 +38,9 @@ NCORES=$(grep -c ^processor /proc/cpuinfo)
 ENTWINE=/root/work/$BUCKDIR/entwine
 mkdir -p $ENTWINE
 
-entwine build -i $LAS -o $ENTWINE --srs $EPSG -t $NCORES
+echo  { \"reprojection\": { \"out\": \"$srs\" } } >> /root/work/reproj.json
+
+entwine build -i $LAS -o $ENTWINE --reprojection reproj.json -t $NCORES
 
 # copy files to gcloud bucket
 gsutil -m cp -r /root/work/$BUCKDIR gs://$BUCKET
