@@ -7,6 +7,7 @@ BUCKDIR=$4
 EPSG=$5
 
 # debugging echos
+echo "$epsg = EPSG"
 TXT=$(realpath $URLS)
 P="${TXT%/*}/"
 echo $P
@@ -21,13 +22,13 @@ mkdir -p $LAS
 # make afunction to handle curling and saveing
 curling_func(){
     url=$1
-    bkdir=$2
+    lasdir=$2
     f="$(echo $url | rev | cut -d"/" -f1 | rev)"
-    curl -L -s -o $LAS/$f $url
+    curl -L -s -o $lasdir/$f $url
 }
 export -f curling_func
 
-# curl files in || (note the way BUCKDIR is passed is wierd, the function puts it in between  /out and /las)
+# curl files in || 
 cat $URLS | parallel --bar curling_func {1} $LAS
 
 # how many cores have we?
