@@ -40,7 +40,7 @@ mkdir -p $ENTWINE
 
 echo  { \"reprojection\": { \"out\": \"$srs\" } } >> /root/work/reproj.json
 
-entwine build -i $LAS -o $ENTWINE --reprojection reproj.json -t $NCORES
+entwine build -i $LAS -o $ENTWINE  -t $NCORES # --reprojection reproj.json
 
 # copy files to gcloud bucket
 gsutil -m cp -r /root/work/$BUCKDIR gs://$BUCKET
