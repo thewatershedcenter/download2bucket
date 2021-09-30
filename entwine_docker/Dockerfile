@@ -26,6 +26,10 @@ RUN addgroup --gid $GROUP_ID user \
 COPY entwine_file.sh /
 RUN  chmod 777 entwine_file.sh
 
+# remove the gcloud tarball for image size reduction
+RUN rm -rf /tmp/*
+
+
 # change to user
 USER user
 

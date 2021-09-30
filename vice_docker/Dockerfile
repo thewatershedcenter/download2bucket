@@ -32,7 +32,10 @@ RUN  chmod 777 vice_file.sh
 # change to user
 #USER user
 
-# change workdir
+# remove the gcloud tarball for image size reduction
+RUN rm -rf /tmp/*
+
+# change workdir    
 WORKDIR /root/work
 
 # enter into bash script

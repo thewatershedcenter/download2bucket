@@ -26,6 +26,9 @@ RUN addgroup --gid $GROUP_ID user \
 COPY file.sh /
 RUN  chmod 777 file.sh
 
+# remove the gcloud tarball for image size reduction
+RUN rm -rf /tmp/*
+
 # change to user
 USER user
 
@@ -39,4 +42,4 @@ ENTRYPOINT ["/file.sh"]
 
 
 
- 
+
