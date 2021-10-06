@@ -11,7 +11,7 @@ EPSG=$5
 gcloud auth activate-service-account --key-file $KEYJSON
 
 # make a directory for downloaded files within outpath
-LAS=/root/work/$BUCKDIR/las
+LAS=/out/$BUCKDIR/las
 mkdir -p $LAS
 
 # make afunction to handle curling and saveing
@@ -30,10 +30,8 @@ cat $URLS | parallel --bar curling_func {1} $LAS
 NCORES=$(grep -c ^processor /proc/cpuinfo)
 
 # make an entwine dir
-ENTWINE=/root/work/$BUCKDIR/entwine
+ENTWINE=/out/$BUCKDIR/entwine
 mkdir -p $ENTWINE
-
-ls $LAS
 
 entwine build -i $LAS -o $ENTWINE -t $NCORES
 

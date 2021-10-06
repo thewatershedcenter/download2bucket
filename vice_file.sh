@@ -16,6 +16,7 @@ echo $P
 gcloud auth activate-service-account --key-file $KEYJSON
 
 # make a directory for downloaded las files
+echo '---------------------making las dir ---------------------'
 LAS=/root/work/$BUCKDIR/las
 mkdir -p $LAS
 
@@ -28,9 +29,11 @@ curling_func(){
 }
 export -f curling_func
 
+echo '---------------------start curl ---------------------'
 # curl files in || 
 cat $URLS | parallel --bar curling_func {1} $LAS
 
+echo '---------------------end curl ---------------------'
 # how many cores have we?
 NCORES=$(grep -c ^processor /proc/cpuinfo)
 
@@ -40,8 +43,10 @@ mkdir -p $ENTWINE
 
 echo  { \"reprojection\": { \"out\": \"$srs\" } } >> /root/work/reproj.json
 
+echo '---------------------do entwine ---------------------'
 entwine build -i $LAS -o $ENTWINE  -t $NCORES # --reprojection reproj.json 
 
+echo '---------------------gsutil ---------------------'
 # copy files to gcloud bucket
 gsutil -m cp -r /root/work/$BUCKDIR gs://$BUCKET
 
