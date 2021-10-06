@@ -21,19 +21,14 @@ RUN mkdir -p /usr/local/gcloud \
 # Adding the package path to local
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-# add a user based on args
-#RUN addgroup --gid $GROUP_ID user \
-#    && adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+# remove the gcloud tarball for image size reduction
+RUN rm -rf /tmp/*
+
 
 # copy file and change permissions
 COPY vice_file.sh /
 RUN  chmod 777 vice_file.sh
 
-# change to user
-#USER user
-
-# remove the gcloud tarball for image size reduction
-RUN rm -rf /tmp/*
 
 # change workdir    
 WORKDIR /root/work

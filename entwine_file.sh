@@ -33,6 +33,8 @@ NCORES=$(grep -c ^processor /proc/cpuinfo)
 ENTWINE=/root/work/$BUCKDIR/entwine
 mkdir -p $ENTWINE
 
+ls $LAS
+
 entwine build -i $LAS -o $ENTWINE -t $NCORES
 
 # copy files to gcloud bucket
