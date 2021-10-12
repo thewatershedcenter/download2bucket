@@ -14,7 +14,7 @@ gcloud auth activate-service-account --key-file $KEYJSON
 LAS=/out/$BUCKDIR/las
 mkdir -p $LAS
 
-# make afunction to handle curling and saveing
+# make a function to handle curling and saveing
 curling_func(){
     url=$1
     lasdir=$2
@@ -36,5 +36,5 @@ mkdir -p $ENTWINE
 entwine build -i $LAS -o $ENTWINE -t $NCORES
 
 # copy files to gcloud bucket
-gsutil -m cp -r /out/$BUCKDIR gs://$BUCKET
+gsutil -m cp -r $ENTWINE gs://$BUCKET
 
