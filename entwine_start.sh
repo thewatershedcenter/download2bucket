@@ -68,4 +68,4 @@ docker run --rm -it -v $PWD:/work -v $OUTDIR:/out -w /work quay.io/kulpojke/down
 # and generate a credential file with
 # gcloud iam service-accounts keys create 
 
-# ./entwine_start.sh -r -k monument2_key.json -u small_download.txt -o /media/data/Downloads/ -b monument_bucket -d carr_lidar -e EPSG:26910
+# ./entwine_start.sh -r -k monument2_key.json -u baby.txt -o /media/data/Downloads/ -b monument_bucket -d carr_lidar -e EPSG:26910
