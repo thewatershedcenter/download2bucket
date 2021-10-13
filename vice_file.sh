@@ -48,7 +48,7 @@ entwine build -i $LAS -o $ENTWINE  -t $NCORES # --reprojection reproj.json
 
 echo '---------------------gsutil ---------------------'
 # copy files to gcloud bucket
-gsutil -m cp -r /root/work/$BUCKDIR gs://$BUCKET
+gsutil -m cp -r $ENTWINE gs://$BUCKET
 
 
 
